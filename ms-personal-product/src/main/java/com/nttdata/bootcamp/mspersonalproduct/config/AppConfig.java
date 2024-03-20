@@ -14,6 +14,9 @@ public class AppConfig {
     @Value("${config.base.endpoint.customer.personal}")
     private String baseUrlCustomerPersonal;
 
+    @Value("${config.base.endpoint.product}")
+    private String baseUrlProduct;
+
     @Bean
     @LoadBalanced
     @Qualifier("customer-personal")
@@ -28,7 +31,7 @@ public class AppConfig {
     @Qualifier("product")
     public WebClient.Builder registerWebClientProduct() {
         System.out.println("========================================================================");
-        System.out.println(baseUrlCustomerPersonal);
-        return WebClient.builder().baseUrl(baseUrlCustomerPersonal);
+        System.out.println(baseUrlProduct);
+        return WebClient.builder().baseUrl(baseUrlProduct);
     }
 }

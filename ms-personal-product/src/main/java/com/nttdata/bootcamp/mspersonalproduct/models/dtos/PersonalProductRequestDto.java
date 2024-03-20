@@ -1,10 +1,6 @@
 package com.nttdata.bootcamp.mspersonalproduct.models.dtos;
 
 
-import org.springframework.data.annotation.Id;
-
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.CustomerPersonal;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -4,6 +4,7 @@ package com.nttdata.bootcamp.mspersonalproduct.services.impl;
 import java.util.Date;
 import java.util.Random;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -33,6 +34,13 @@ public class PersonalProductServiceImpl implements PersonalProductService{
         personalProduct.setBalance(0.0);
         return this.personalProductRepository.save(personalProduct);
     }
+
+    @Override
+    public Mono<PersonalProduct> findByCustomerPersonalId(String customerPersonalId) {
+        return this.personalProductRepository.findByCustomerPersonalId(new ObjectId(customerPersonalId));
+    }
+
+    
 
     
 

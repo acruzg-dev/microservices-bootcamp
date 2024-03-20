@@ -8,4 +8,6 @@ import reactor.core.publisher.Mono;
 public interface PersonalProductService {
 
     public Mono<PersonalProduct> save(PersonalProduct personalProduct);
+
+    public Mono<PersonalProduct> findByCustomerPersonalId(String customerPersonalId);
 }

@@ -11,12 +11,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonalProductResponseDto {
+public class ProductResponseDto {
 
-    //data de la persona
     // private String id;
-    private String numberAccount;
-    private Double balance;
-    private Date createAt;
-    private ProductResponseDto product;
+    private String name;
+    private Double commission;
+    private Double movementLimit;
+    // @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date transactionDate;
+    private Date createdAt;
 }
