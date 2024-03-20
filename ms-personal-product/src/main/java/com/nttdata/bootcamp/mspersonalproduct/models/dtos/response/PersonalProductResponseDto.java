@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.mspersonalproduct.models.dtos;
+package com.nttdata.bootcamp.mspersonalproduct.models.dtos.response;
 
 import java.util.Date;
 

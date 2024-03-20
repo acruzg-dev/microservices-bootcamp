@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Document(collection = "customers_personal_products")
 @AllArgsConstructor
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@ToString
 public class PersonalProduct {
 
     @Id
