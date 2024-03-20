@@ -77,6 +77,7 @@ public class PersonalProductController { //actua como un handler
             })
             .flatMap(product-> {
                 personalProductSaved.setProductId(new ObjectId(personalProduct.getProductId()));
+                personalProductSaved.setRemainingMovesLimit(product.getMovementLimit());
                 return personalProductService.save(personalProductSaved);
             })
             .map(save-> ResponseEntity.status(HttpStatus.CREATED).body(personalProduct))
