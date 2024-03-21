@@ -30,7 +30,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/personal-product")
+@RequestMapping("/api/personal-product")
 @AllArgsConstructor
 public class PersonalProductController { // actua como un handler
 

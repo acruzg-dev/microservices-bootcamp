@@ -28,7 +28,7 @@ import com.nttdata.bootcamp.mstransactions.services.TransactionService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/transactions")
+@RequestMapping("/api/transactions")
 public class TransactionController {
 
     @Autowired

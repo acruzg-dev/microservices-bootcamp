@@ -20,7 +20,7 @@ import com.nttdata.bootcamp.mspersonalproduct.services.ProductService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/business-product")
+@RequestMapping("/api/business-product")
 public class BusinessProductController {
 
     @Autowired
