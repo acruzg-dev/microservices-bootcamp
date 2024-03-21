@@ -17,6 +17,9 @@ public class AppConfig {
     @Value("${config.base.endpoint.product}")
     private String baseUrlProduct;
 
+    @Value("${config.base.endpoint.customer.business}")
+    private String baseUrlCustomerBusiness;
+
     @Bean
     @LoadBalanced
     @Qualifier("customer-personal")
@@ -33,5 +36,13 @@ public class AppConfig {
         System.out.println("========================================================================");
         System.out.println(baseUrlProduct);
         return WebClient.builder().baseUrl(baseUrlProduct);
+    }
+
+    @Bean
+    @LoadBalanced
+    @Qualifier("customer-business")
+    public WebClient.Builder registerWebClientCustomerBusiness() {
+        
+        return WebClient.builder().baseUrl(baseUrlCustomerBusiness);
     }
 }
