@@ -51,4 +51,17 @@ public class CustomerBusinessController {
             }).map(save -> ResponseEntity.ok().body(save))
             .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("number-document/{numberDocument}")
+    public Mono<ResponseEntity<CustomerBusiness>> findByNumberDocument(@PathVariable String numberDocument){
+        return this.customerBusinessService.findAll()
+                .filter(customer ->customer.getNumberDocument().equals(numberDocument))
+                .map(res -> ResponseEntity.ok(res))
+                .next()
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
+
+            // return this.customerBusinessService.findByNumberDocument(numberDocument)
+            // .map(res -> ResponseEntity.ok(res))
+            // .defaultIfEmpty(ResponseEntity.badRequest().build());
+    }
 }

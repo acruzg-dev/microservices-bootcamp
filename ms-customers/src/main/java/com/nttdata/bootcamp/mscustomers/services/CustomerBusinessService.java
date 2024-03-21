@@ -15,4 +15,6 @@ public interface CustomerBusinessService {
     public Mono<CustomerBusiness> save(CustomerBusiness business);
 
     public Mono<Void> deleteById(String id);
+
+    public Mono<CustomerBusiness> findByNumberDocument(String numberDocument);
 }

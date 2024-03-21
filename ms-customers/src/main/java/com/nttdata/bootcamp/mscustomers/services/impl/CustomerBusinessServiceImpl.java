@@ -41,4 +41,9 @@ public class CustomerBusinessServiceImpl implements CustomerBusinessService{
         return this.customerBusinessRepository.deleteById(id);
     }
 
+    @Override
+    public Mono<CustomerBusiness> findByNumberDocument(String numberDocument) {
+        return this.customerBusinessRepository.findByNumberDocument(numberDocument);
+    }
+
 }

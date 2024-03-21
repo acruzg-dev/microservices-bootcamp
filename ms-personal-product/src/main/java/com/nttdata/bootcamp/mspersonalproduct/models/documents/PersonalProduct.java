@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Document(collection = "customers_personal_products")
+@Document(collection = "customers_products")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
