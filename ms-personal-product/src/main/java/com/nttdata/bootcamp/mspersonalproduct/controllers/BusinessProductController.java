@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.bootcamp.mspersonalproduct.models.documents.BusinessProduct;
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.Product;
+
 import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.BusinessProductRequestDto;
-import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.PersonalProductRequestDto;
+
 import com.nttdata.bootcamp.mspersonalproduct.services.BusinessProductService;
 import com.nttdata.bootcamp.mspersonalproduct.services.CustomerBusinessService;
 import com.nttdata.bootcamp.mspersonalproduct.services.ProductService;
@@ -31,57 +30,37 @@ public class BusinessProductController {
 
     @Autowired
     private ProductService productService;
+
     @PostMapping
-    public Mono<ResponseEntity<BusinessProduct>> save(@RequestBody BusinessProductRequestDto businessProduct){
+    public Mono<ResponseEntity<BusinessProduct>> save(@RequestBody BusinessProductRequestDto businessProduct) {
         BusinessProduct businessProductSaved = new BusinessProduct();
         return this.customerBusinessService.findByNumberDocument(businessProduct.getBusinessNumberDocument())
                 .flatMap(business -> {
                     businessProductSaved.setCustomerBusinessId(new ObjectId(business.getId()));
                     businessProductSaved.setProductId(new ObjectId(businessProduct.getProductId()));
                     return this.productService.findById(businessProduct.getProductId());
-                
+
                 })
                 .flatMap(product -> {
                     Mono<BusinessProduct> productMono;
                     businessProductSaved.setProductId(new ObjectId(product.getId()));
-                    if(!product.getName().equalsIgnoreCase("Cuenta de Ahorros") ){
+                    if (!product.getName().equalsIgnoreCase("Cuenta de Ahorros")) {
                         productMono = Mono.empty();
-                        // productMono = this.businessProductService.createAccount(businessProductSaved);
+                        // productMono =
+                        // this.businessProductService.createAccount(businessProductSaved);
                     }
-                    if(!product.getName().equalsIgnoreCase("Plazo Fijo")){
+                    if (!product.getName().equalsIgnoreCase("Plazo Fijo")) {
                         productMono = Mono.empty();
-                        // productMono = this.businessProductService.createAccount(businessProductSaved);
-                       
-                    }
-                    else{
+                        // productMono =
+                        // this.businessProductService.createAccount(businessProductSaved);
+
+                    } else {
                         productMono = this.businessProductService.createAccount(businessProductSaved);
-                        
+
                     }
-                    return productMono; 
+                    return productMono;
                 }).map(save -> ResponseEntity.status(HttpStatus.CREATED).body(save))
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
-                
-                
-                
-                // 
-                
-        // return this.customerBusinessService.findByNumberDocument(businessProduct.getBusinessNumberDocument())
-        //     .flatMap(business -> {
-        //         businessProductSaved.setCustomerBusinessId(new ObjectId(business.getId()));
-        //         businessProductSaved.setProductId(new ObjectId(businessProduct.getProductId()));
-                
-        //         return productService.findById(businessProduct.getProductId());
-                
-        //     })
-        //     .flatMap(product-> {
-        //         businessProductSaved.setProductId(new ObjectId(businessProduct.getProductId()));
-        //         businessProductSaved.setRemainingMovesLimit(product.getMovementLimit());
-        //         return this.businessProductService.findByProductIdAndCustomerPersonalId(product.getId(), businessProductSaved.getCustomerPersonalId().toString())
-        //             .flatMap(exist -> {
-        //                 return Mono.error(new IllegalArgumentException("personal with product"));
-        //             })
-        //             .switchIfEmpty(businessProductService.save(businessProductSaved));
-        //     })
-        //     .map(save-> ResponseEntity.status(HttpStatus.CREATED).body(businessProduct));
+
     }
 }

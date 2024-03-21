@@ -29,6 +29,5 @@ public class BusinessProduct {
     private String numberAccount;
     private Double balance;
     private Date createAt;
-    // private Double remainingMovesLimit;
 
 }

@@ -9,8 +9,7 @@ import com.nttdata.bootcamp.mspersonalproduct.models.documents.PersonalProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
-public interface PersonalProductRepository extends ReactiveMongoRepository<PersonalProduct,String>{
+public interface PersonalProductRepository extends ReactiveMongoRepository<PersonalProduct, String> {
 
     public Flux<PersonalProduct> findByCustomerPersonalId(ObjectId customerPersonalId);
 

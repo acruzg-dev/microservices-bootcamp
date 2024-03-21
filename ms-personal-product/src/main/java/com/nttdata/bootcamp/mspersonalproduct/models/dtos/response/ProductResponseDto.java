@@ -13,11 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductResponseDto {
 
-    // private String id;
     private String name;
     private Double commission;
     private Double movementLimit;
-    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date transactionDate;
     private Date createdAt;
 }

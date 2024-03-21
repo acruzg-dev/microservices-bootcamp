@@ -13,8 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PersonalProductResponseDto {
 
-    //data de la persona
-    // private String id;
     private String numberAccount;
     private Double balance;
     private Date createAt;

@@ -9,15 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nttdata.bootcamp.mspersonalproduct.models.documents.CustomerBusiness;
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.Product;
 import com.nttdata.bootcamp.mspersonalproduct.services.CustomerBusinessService;
 
 import reactor.core.publisher.Mono;
 
-
-
 @Service
-public class CustomerBusinessServiceImpl implements CustomerBusinessService{
+public class CustomerBusinessServiceImpl implements CustomerBusinessService {
 
     @Autowired
     @Qualifier("customer-business")
@@ -26,14 +23,11 @@ public class CustomerBusinessServiceImpl implements CustomerBusinessService{
     @Override
     public Mono<CustomerBusiness> findByNumberDocument(String numberDocument) {
         return client
-            .build()
-            .get().uri("/number-document/{numberDocument}",Map.of("numberDocument",numberDocument))
-            .accept(MediaType.APPLICATION_JSON)
-            .retrieve()
-            .bodyToMono(CustomerBusiness.class);
+                .build()
+                .get().uri("/number-document/{numberDocument}", Map.of("numberDocument", numberDocument))
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(CustomerBusiness.class);
     }
 
-    
-    
-    
 }

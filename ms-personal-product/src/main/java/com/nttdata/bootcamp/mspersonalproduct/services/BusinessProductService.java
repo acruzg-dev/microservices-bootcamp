@@ -7,5 +7,4 @@ import reactor.core.publisher.Mono;
 public interface BusinessProductService {
     public Mono<BusinessProduct> createAccount(BusinessProduct businessProduct);
 
-    
 }

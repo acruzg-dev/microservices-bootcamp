@@ -42,7 +42,7 @@ public class AppConfig {
     @LoadBalanced
     @Qualifier("customer-business")
     public WebClient.Builder registerWebClientCustomerBusiness() {
-        
+
         return WebClient.builder().baseUrl(baseUrlCustomerBusiness);
     }
 }

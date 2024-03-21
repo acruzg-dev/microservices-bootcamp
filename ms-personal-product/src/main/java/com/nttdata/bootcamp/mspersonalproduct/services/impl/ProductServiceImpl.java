@@ -8,14 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-
 import com.nttdata.bootcamp.mspersonalproduct.models.documents.Product;
 import com.nttdata.bootcamp.mspersonalproduct.services.ProductService;
 
 import reactor.core.publisher.Mono;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     @Qualifier("product")
@@ -24,11 +23,11 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Mono<Product> findById(String id) {
         return clientProduct
-            .build()
-            .get().uri("/{id}",Map.of("id",id))
-            .accept(MediaType.APPLICATION_JSON)
-            .retrieve()
-            .bodyToMono(Product.class);
+                .build()
+                .get().uri("/{id}", Map.of("id", id))
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Product.class);
     }
 
 }
