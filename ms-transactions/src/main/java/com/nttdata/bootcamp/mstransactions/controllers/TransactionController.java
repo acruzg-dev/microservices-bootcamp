@@ -1,8 +1,8 @@
 package com.nttdata.bootcamp.mstransactions.controllers;
 
-import java.time.Duration;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nttdata.bootcamp.mstransactions.models.documents.CustomerPersonal;
-import com.nttdata.bootcamp.mstransactions.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mstransactions.models.documents.Product;
 import com.nttdata.bootcamp.mstransactions.models.documents.Transaction;
 import com.nttdata.bootcamp.mstransactions.models.dto.request.TransactionRequestDto;
 import com.nttdata.bootcamp.mstransactions.models.dto.response.PersonalProductResponseDto;
 import com.nttdata.bootcamp.mstransactions.models.dto.response.ProductResponseDto;
 import com.nttdata.bootcamp.mstransactions.models.dto.response.TransactionResponseDto;
-import com.nttdata.bootcamp.mstransactions.repositories.TransactionRepository;
 import com.nttdata.bootcamp.mstransactions.services.CustomerPersonalService;
 import com.nttdata.bootcamp.mstransactions.services.PersonalProductService;
 import com.nttdata.bootcamp.mstransactions.services.ProductService;

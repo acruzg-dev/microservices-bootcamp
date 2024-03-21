@@ -3,7 +3,6 @@ package com.nttdata.bootcamp.mstransactions.models.dto.response;
 import java.util.Date;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 
 import com.nttdata.bootcamp.mstransactions.models.documents.Transaction;
 

@@ -1,7 +1,6 @@
 package com.nttdata.bootcamp.mstransactions.services;
 
 import com.nttdata.bootcamp.mstransactions.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mstransactions.models.documents.Product;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

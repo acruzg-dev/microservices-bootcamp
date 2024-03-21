@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nttdata.bootcamp.mstransactions.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mstransactions.models.documents.Product;
 import com.nttdata.bootcamp.mstransactions.services.PersonalProductService;
 
 import reactor.core.publisher.Flux;
@@ -28,7 +27,7 @@ public class PersonalProductServiceImpl implements PersonalProductService{
 
     @Override
     public Mono<PersonalProduct> findByNumberAccount(String numberAccount) {
-        System.out.println("--------------------------------" + numberAccount );
+        
         return clientPersonalProduct
             .build()
             .get().uri("/number-account/{numberAccount}",Map.of("numberAccount",numberAccount))
