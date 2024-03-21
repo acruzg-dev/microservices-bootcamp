@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nttdata.bootcamp.mspersonalproduct.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.PersonalProductRequestDto;
+import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.UpdateBalanceDto;
 import com.nttdata.bootcamp.mspersonalproduct.repositories.PersonalProductRepository;
 
 import com.nttdata.bootcamp.mspersonalproduct.services.PersonalProductService;
@@ -28,7 +28,10 @@ public class PersonalProductServiceImpl implements PersonalProductService{
     public Mono<PersonalProduct> save(PersonalProduct personalProduct) {
         int min=100;
         int max=999;
-        personalProduct.setBalance(0.0);
+        if(personalProduct.getBalance()==null){
+            personalProduct.setBalance(0.0);
+        }
+        
         personalProduct.setCreateAt(new Date());
         personalProduct.setNumberAccount(new Random().nextInt(max-min+1)+min+"-"+new Random().nextInt(max-min+1)+min+"-"+new Random().nextInt(max-min+1)+min);
         personalProduct.setBalance(0.0);
@@ -48,7 +51,13 @@ public class PersonalProductServiceImpl implements PersonalProductService{
     @Override
     public Mono<PersonalProduct> findByProductIdAndCustomerPersonalId(String productId, String customerPersonalId) {
         return this.personalProductRepository.findByProductIdAndCustomerPersonalId(new ObjectId(productId), new ObjectId(customerPersonalId));
-        // return this.personalProductRepository.findByProductIdAndCustomerPersonalId(new ObjectId("65f8e60a9f150a6435b24a34"), new ObjectId("65f8eeef1af8bd51a3823dfc"));
+        
+    }
+
+    @Override
+    public Mono<PersonalProduct> saveAll(PersonalProduct personalProduct){
+        
+        return this.personalProductRepository.save(personalProduct);    
     }
 
     

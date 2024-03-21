@@ -2,25 +2,24 @@ package com.nttdata.bootcamp.mspersonalproduct.controllers;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.CustomerPersonal;
 import com.nttdata.bootcamp.mspersonalproduct.models.documents.PersonalProduct;
-import com.nttdata.bootcamp.mspersonalproduct.models.documents.Product;
+
 import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.PersonalProductRequestDto;
+import com.nttdata.bootcamp.mspersonalproduct.models.dtos.request.UpdateBalanceDto;
 import com.nttdata.bootcamp.mspersonalproduct.models.dtos.response.PersonalProductResponseDto;
 import com.nttdata.bootcamp.mspersonalproduct.models.dtos.response.PersonalResponseDto;
 import com.nttdata.bootcamp.mspersonalproduct.models.dtos.response.ProductResponseDto;
@@ -53,7 +52,7 @@ public class PersonalProductController { //actua como un handler
             
             .flatMap(personal -> {
                 personalProductSaved.setCustomerPersonalId(new ObjectId(personal.getId()));
-                personalProduct.setCustomerPersonalId(personal.getId());
+                personalProduct.setCustomerPersonalId(new ObjectId(personal.getId()).toString());
                 
                 return productService.findById(personalProduct.getProductId());
                 
@@ -82,14 +81,10 @@ public class PersonalProductController { //actua como un handler
                 responseDto.setAddress(personal.getAddress());
                 responseDto.setPhone(personal.getPhone());
                 responseDto.setId(personal.getId());
-                // return this.personalProductService.findByCustomerPersonalId(personal.getId())
-                //     .map(perss-> perss)
-                //     .flatMap( personalProd -> {
-                //         return this.productService.findById(personalProd.getProductId().toString());
-                //     });
+                
                 return this.personalProductService.findByCustomerPersonalId(responseDto.getId()).collectList()
                     .map(personalProductList-> {
-                        // System.out.println(personalProductList);
+                        
                         personalProductList.forEach(pp -> {
                             
                             PersonalProductResponseDto personalP = new PersonalProductResponseDto();
@@ -97,7 +92,8 @@ public class PersonalProductController { //actua como un handler
                             personalP.setNumberAccount(pp.getNumberAccount());
                             personalP.setCreateAt(pp.getCreateAt());
                             System.out.println("========>>>>>> " +pp.getProductId().toString());
-                            this.productService.findById("65f8e60a9f150a6435b24a34"/*pp.getProductId().toString()*/)
+                            // this.productService.findById("65f8e60a9f150a6435b24a34"/*pp.getProductId().toString()*/)
+                            this.productService.findById(pp.getProductId().toString())
                                 .map( product-> {
                                     System.out.println("========" +personalP.toString());
                                     System.out.println("========" +product.toString());
@@ -120,11 +116,27 @@ public class PersonalProductController { //actua como un handler
         .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("number-account/{numberAccount}")
+    @GetMapping("/number-account/{numberAccount}")
     public Mono<ResponseEntity<PersonalProduct>> findByNumberAccount(@PathVariable String numberAccount){
         return this.personalProductService.findByNumberAccount(numberAccount)
                 .map(find -> ResponseEntity.ok(find))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/add-balance/{numberAccount}")
+    public Mono<ResponseEntity<PersonalProduct>> updateBalance(@PathVariable String numberAccount, @RequestBody UpdateBalanceDto dto){
+        return this.personalProductService.findByNumberAccount(numberAccount)
+                .flatMap(personalP -> {
+                    personalP.setBalance(dto.getAmount());
+                    return this.personalProductService.saveAll(personalP);
+                })
+                .map( saved ->  ResponseEntity.ok().body(saved))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/customer-personal/{customerPersonalId}")
+    public Mono<ResponseEntity<Flux<PersonalProduct>>> findByCustomerPersonalId(@PathVariable String customerPersonalId){
+        return Mono.just(ResponseEntity.ok(this.personalProductService.findByCustomerPersonalId(customerPersonalId)));
     }
 
 }

@@ -9,6 +9,8 @@ public interface PersonalProductService {
 
     public Mono<PersonalProduct> save(PersonalProduct personalProduct);
 
+    public Mono<PersonalProduct> saveAll(PersonalProduct personalProduct);
+
     public Flux<PersonalProduct> findByCustomerPersonalId(String customerPersonalId);
 
     public Mono<PersonalProduct> findByNumberAccount(String numberAccount);
