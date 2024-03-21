@@ -1,0 +1,72 @@
+version: '3.8'
+services:
+  ms-eureka-server:
+    image: ms-eureka-server
+    container_name: ms-eureka-server
+    restart: always
+    ports:
+      - 8761:8761
+
+  ms-config-server:
+    image: ms-config-server
+    container_name: ms-config-server
+    restart: always
+    ports:
+      - 7070:7070
+    depends_on:
+      - ms-eureka-server
+    environment:
+      EUREKA_URL: 'http://ms-eureka-server:8761/eureka/'
+    
+  ms-customers:
+    image: ms-customers
+    container_name: ms-customers
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      # - ms-eureka-server
+      - ms-config-server
+    environment:
+      EUREKA_URL: 'http://ms-eureka-server:8761/eureka/'
+      CONFIG_SERVER_HOST: 'http://ms-config-server:7070'
+
+  ms-products:
+    image: ms-products
+    container_name: ms-products
+    restart: always
+    ports:
+      - 8082:8082
+    depends_on:
+      - ms-eureka-server
+      - ms-config-server
+    environment:
+      EUREKA_URL: 'http://ms-eureka-server:8761/eureka/'
+      CONFIG_SERVER_HOST: 'http://ms-config-server:7070'
+
+  ms-personal-product:
+    image: ms-personal-product
+    container_name: ms-personal-product
+    restart: always
+    ports:
+      - 8083:8083
+    depends_on:
+      - ms-eureka-server
+      - ms-config-server
+    environment:
+      EUREKA_URL: 'http://ms-eureka-server:8761/eureka/'
+      CONFIG_SERVER_HOST: 'http://ms-config-server:7070'
+
+    
+  ms-transactions:
+    image: ms-transactions
+    container_name: ms-transactions
+    restart: always
+    ports:
+      - 8084:8085
+    depends_on:
+      - ms-eureka-server
+      - ms-config-server
+    environment:
+      EUREKA_URL: 'http://ms-eureka-server:8761/eureka/'
+      CONFIG_SERVER_HOST: 'http://ms-config-server:7070/'
